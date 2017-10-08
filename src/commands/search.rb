@@ -1,27 +1,20 @@
-class Commands::Search < Commands
-  def initialize(words)
-    @words = words
+class Commands::Search < Commands::Base
+  def initialize(query)
+    @query = query
   end
 
   def execute
     print_result(result)
   end
 
-  def description
-    '"search" - .'
+  def self.description
+    '"search [params]" - Serch provided query in previously built index'
   end
 
   private
 
-  def result
-    {}.tap do |result|
-      @words.each do |word|
-        result[word.to_sym] = Storage.instance.find(word)
-      end
-    end
-  end
-
   def print_result(result)
+    result = Storage.find(@query)
     result.each_with_index do |(key,data),index|
       Console.instance.print("#{index+1}. Searching for '#{key}' ...")
       Console.instance.print('Found in:')

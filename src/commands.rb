@@ -1,16 +1,11 @@
-class Commands
-    def self.execute(*args)
-      service = new(*args)
-  
-      service.send(:execute)
-    end
+module Commands
+  LIST = %w(exit help index search).freeze
 
-    private
-
-    def initialize(*args)
-    end
-  
-    def execute
-      raise NotImplementedError
-    end
+  def self.list
+    LIST
   end
+
+  def self.command_class(command)
+    Object.const_get("Commands::#{command.capitalize}")
+  end
+end

@@ -1,9 +1,9 @@
-class Commands::Exit < Commands
-    def execute
-        exit
-    end
+class Commands::Exit < Commands::Base
+  def execute
+    exit
+  end
 
-    def description
-        '"exit" - interrupt the program.'
-    end
+  def self.description
+    '"exit" -Iinterrupt the program.'
+  end
 end
