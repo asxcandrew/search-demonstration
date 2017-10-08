@@ -1,0 +1,7 @@
+On 18th Nov 1963, Bell System introduced the touch tone phone to the world. The touch tone pad replaced the old rotary dial.
+This touchtone dial-pad was not only different from its predecessor, but was also completely opposite of a very similar and popular layout of the calculators.
+You can find a complete history and the science behind this decision on 99percentinvisible, but for the purpose of this post, what is important to note is that when Bell System asked the Texas Instruments and Sharp about why the calculator layout was designed the way it was, they said they did not conduct any research to define the calculator layout. They simply took the cue from the mechanical calculators (like the one shown below). These calculators had numbers 0-to-9 arranged from bottom to top.
+So Bell System decided to conduct their own research, and after testing many different layouts, decided to choose the one that we all use now.
+This is an example of a great human factors study. But the study was done for physical push button dial pads.
+Somehow we kept following the same layout when we moved from these fixed phone lines to cordless phones to push button mobile phones and now even on touchscreen based smartphones.
+Until the phone screen sizes were small, people were able to handle dialing the numbers holding the phone with single hand. But now the phone sizes are getting bigger and bigger and this dial-pad layout is starting to fail.
