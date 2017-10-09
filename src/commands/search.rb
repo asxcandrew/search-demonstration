@@ -4,7 +4,8 @@ class Commands::Search < Commands::Base
   end
 
   def execute
-    print_result(result)
+    result_object = Storage.find(@query)
+    print_result(result_object)
   end
 
   def self.description
@@ -13,13 +14,17 @@ class Commands::Search < Commands::Base
 
   private
 
-  def print_result(result)
-    result = Storage.find(@query)
-    result.each_with_index do |(key,data),index|
-      Console.print("#{index+1}. Searching for '#{key}' ...")
-      Console.print('Found in:')
-      data.sort_by{|_key, value| -value}.each do |file, number|
-        Console.print("   #{file} #{number} times")        
+  def print_result(result_object)
+    result_object.words.each_with_index do |word,index|
+      Console.print("#{index+1}. Searching for '#{word}' ...")
+      if result_object.word_files(word).any?
+        Console.print('Found in:')
+
+        result_object.word_files(word).each do |file|
+          Console.print("   #{file}")
+        end
+      else
+        Console.print('No matches found.')
       end
     end
     Console.print_empty_line

@@ -4,10 +4,7 @@ require_relative 'src/storage'
 
 require 'pry'
 
-Dir[File.dirname(__FILE__) + '/src/storage/*.rb'].each do |file|
-  require file
-end
-Dir[File.dirname(__FILE__) + '/src/commands/*.rb'].each do |file|
+Dir[File.dirname(__FILE__) + '/src/**/*.rb'].each do |file|
   require file
 end
 
