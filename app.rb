@@ -10,7 +10,7 @@ end
 
 Storage.new()
 
-Commands.command_class('help').execute
+Commands.execute('help')
 
 loop do
   input = gets.chomp

@@ -9,7 +9,7 @@ module Console
 
   def self.execute(command, params = nil)
     if Commands.list.include? command
-      Commands.command_class(command).execute(params)
+      Commands.execute(command, params)
     else
       print('Invalid command')
       print_empty_line
