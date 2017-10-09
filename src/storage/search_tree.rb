@@ -1,44 +1,45 @@
 class Storage::SearchTree
   class Node < Storage::SearchTree
-    attr_accessor :key, :childs, :data, :parent
+    attr_accessor :key
 
-    def initialize(source, filename, ancestor = nil)
-      @childs = {}
+    def initialize(source, filename)
+      @childs = []
       @data = {}
-      @parent = ancestor
       @key = source[0]
-      insert(source, filename)
+      insert(source[1..-1], filename)
     end
 
     def insert(source, filename)
       if source.length > 0
-        child_key = source[0]
-
-        if childs[child_key]
-          childs[child_key].insert(source[1..-1], filename)
-        else
-          childs[child_key] = Node.new(source[1..-1], filename, self)
-        end
+        insert_or_create_child(source, filename)
       else
-        data.tap do |item|
-          if item[filename]
-            item[filename] = item[filename] + 1
-          else
-            item[filename] = 1
-          end
+        update_data(filename)
+      end
+    end
+
+    private
+
+    def update_data(key)
+      @data.tap do |item|
+        if item[key]
+          item[key] = item[key] + 1
+        else
+          item[key] = 1
         end
       end
     end
   end
 
   def initialize
-    @childs = {}
+    @childs = []
   end
 
   def find(word)
     if word.length > 0
-      if @childs[word[0]]
-        @childs[word[0]].find(word[1..-1])
+      child = child_by_key(word[0])
+
+      if child
+        child.find(word[1..-1])
       else
         {}
       end
@@ -48,10 +49,22 @@ class Storage::SearchTree
   end
 
   def insert(word, filename)
-    if @childs[word[0]]
-      @childs[word[0]].insert( word[1..-1], filename )
+    insert_or_create_child(word, filename)
+  end
+
+  private
+
+  def insert_or_create_child(word, filename)
+    child = child_by_key(word[0])
+
+    if child
+      child.insert( word[1..-1], filename )
     else
-      @childs[word[0]] = Node.new( word[1..-1], filename )
+      @childs << Node.new( word, filename )
     end
+  end
+
+  def child_by_key(key)
+    @childs.find{|c| c.key == key}
   end
 end
