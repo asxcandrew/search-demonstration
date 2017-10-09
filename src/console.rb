@@ -1,17 +1,13 @@
-require 'singleton'
-
-class Console
-  include Singleton
-
-  def print(string = '')
+module Console
+  def self.print(string = '')
     puts(">>> #{string}")
   end
 
-  def print_empty_line
+  def self.print_empty_line
     $stdout.write('>>> ')
   end
 
-  def execute(command, params = nil)
+  def self.execute(command, params = nil)
     if Commands.list.include? command
       Commands.command_class(command).execute(params)
     else

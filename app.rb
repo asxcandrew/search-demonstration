@@ -19,5 +19,5 @@ loop do
   input = gets.chomp
   command, *params = input.split /\s/
 
-  Console.instance.execute(command, params)
+  Console.execute(command, params)
 end

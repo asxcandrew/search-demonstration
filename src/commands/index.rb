@@ -1,7 +1,7 @@
 class Commands::Index < Commands::Base
     def execute
       Dir[Dir.pwd + '/raw/*'].each do |file|
-        Console.instance.print(file)
+        Console.print(file)
 
         file = File.open(file)
 
@@ -13,7 +13,7 @@ class Commands::Index < Commands::Base
           end
         end
       end
-      Console.instance.print_empty_line
+      Console.print_empty_line
     end
 
     def self.description

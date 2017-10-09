@@ -16,12 +16,12 @@ class Commands::Search < Commands::Base
   def print_result(result)
     result = Storage.find(@query)
     result.each_with_index do |(key,data),index|
-      Console.instance.print("#{index+1}. Searching for '#{key}' ...")
-      Console.instance.print('Found in:')
+      Console.print("#{index+1}. Searching for '#{key}' ...")
+      Console.print('Found in:')
       data.sort_by{|_key, value| -value}.each do |file, number|
-        Console.instance.print("   #{file} #{number} times")        
+        Console.print("   #{file} #{number} times")        
       end
     end
-    Console.instance.print_empty_line
+    Console.print_empty_line
   end
 end
