@@ -5,12 +5,22 @@ class Storage
     @@instance ||= self
   end
 
-  def self.insert(*args)
-    @@storage.insert(*args)
-  end
+  class << self
+    def to_json
+      @@storage.to_json
+    end
 
-  def self.find(query)
-    @@instance.find(query)
+    def insert(*args)
+      @@storage.insert(*args)
+    end
+  
+    def find(query)
+      @@instance.find(query)
+    end
+
+    def restore_from_json(body)
+      @@storage.restore(JSON.parse(body))
+    end
   end
 
   def find(query)

@@ -1,12 +1,12 @@
+require 'json/ext'
+
 class Storage::SearchTree
   class Node < Storage::SearchTree
-    attr_accessor :key
+    attr_accessor :key, :data
 
-    def initialize(source, filename)
+    def initialize()
       @childs = []
       @data = {}
-      @key = source[0]
-      insert(source[1..-1], filename)
     end
 
     def insert(source, filename)
@@ -15,6 +15,10 @@ class Storage::SearchTree
       else
         update_data(filename)
       end
+    end
+
+    def to_json
+      {c: @childs.map(&:to_json), k: @key, d: @data}
     end
 
     private
@@ -52,16 +56,33 @@ class Storage::SearchTree
     insert_or_create_child(word, filename)
   end
 
+  def to_json
+    {c: @childs.map(&:to_json)}.to_json
+  end
+
+  def restore(struct)
+    struct['c'].each do |child_data|
+      child = Node.new
+      child.key = child_data['k']
+      child.data = child_data['d']
+      child.restore(child_data)
+
+      @childs << child
+    end
+  end
+
   private
 
   def insert_or_create_child(word, filename)
     child = child_by_key(word[0])
 
-    if child
-      child.insert( word[1..-1], filename )
-    else
-      @childs << Node.new( word, filename )
+    unless child
+      child = Node.new
+      child.key = word[0]
+      @childs << child
     end
+
+    child.insert(word[1..-1], filename)
   end
 
   def child_by_key(key)
